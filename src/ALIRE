@@ -1,0 +1,5 @@
+make perf
+perf_stack_array > resultat_array.txt
+perf_stack_list > resultat_list.txt
+gnuplot resultat.plot
+gv resultat.eps &

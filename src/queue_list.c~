@@ -1,0 +1,62 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include "queue.h"
+
+typedef struct node_t{
+
+	struct node_t *next;
+	void *object;
+} node;
+
+struct queue_t{
+	node * first;
+	node * last;
+};
+
+
+/* create an empty queue */
+queue queue_create(void){
+ 	
+	queue s = malloc(sizeof(*s));
+	s->first = NULL;
+	s->first = malloc(sizeof(node));
+	s->last = s->first;
+	return s;
+}
+
+/* create an empty queue */
+void queue_destroy(queue s){
+	while(!queue_empty(s))
+		queue_pop(s);
+}
+
+/* return true if and only if the queue is empty */
+int queue_empty(queue s){
+  return s->first == s->last;
+}
+
+/* push an object on the back of the queue */
+void queue_push(queue s, void *object){
+	node *n = malloc(sizeof(n));
+	n->object = object;
+	n->next = NULL;
+	s->last->next = n;
+	s->last = n;
+}
+
+
+/* return the front element of the queue.
+   The queue must not be empty (as reported by queue_empty()) */
+void * queue_front(queue s){
+  return s->first->next->object;
+}
+
+/* pop the front element off of the queue.
+   The queue must not be empty (as reported by queue_empty()) */
+void queue_pop(queue s){
+	if(!queue_empty(s)){
+		node *copy = s->first;
+		s->first = s->first->next;
+		free(copy);
+	}
+}
